@@ -32,6 +32,12 @@ const defaultColumns = [
     dataIndex: 'quantity',
   },
   {
+    title: 'Cena',
+    key: 'price',
+    dataIndex: 'price',
+    width: 100,
+  },
+  {
     title: 'Dodać do koszyka',
     key: 'opetation',
     dataIndex: 'operation',
@@ -43,15 +49,23 @@ const defaultColumns = [
 ];
 
 const ProductPage: React.FC<ProductPageProps> = ({ itemsList }) => {
-  console.log(itemsList);
   const productsList = itemsList.map((item: ProductInfo) => ({
     name: item.name,
     quantity: item.max,
     isBlocked: Boolean(item.isBlocked),
     availability: item.max > 0 ? 'tak' : 'towar jest niedostępny',
+    price: `${Number(item.price)} zł`,
   }));
-  console.log(productsList);
 
-  return <Table bordered columns={defaultColumns} dataSource={productsList} />;
+  return (
+    <Table
+      bordered
+      columns={defaultColumns}
+      pagination={{
+        showSizeChanger: true,
+      }}
+      dataSource={productsList}
+    />
+  );
 };
 export default ProductPage;
