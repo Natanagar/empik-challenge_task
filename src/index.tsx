@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import 'antd/dist/antd.css';
 import App from './App';
-import { ConfigProvider } from 'antd';
-import plPL from 'antd/lib/locale/pl_PL';
+import 'antd/dist/antd.css';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ConfigProvider locale={plPL}>
-      <App />
-    </ConfigProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,71 +1,60 @@
-import React from 'react';
-import { ProductInfo } from '../../model/api/getCart';
-import { Table, Checkbox } from 'antd';
+import React, { FC, useEffect, useState } from 'react';
+import { notification, Skeleton, Avatar, Badge } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { History } from 'history';
+import styled from 'styled-components';
+import getCart, { ProductInfo } from '../../model/api/getCart';
+import ProductTable from './ProductTable';
+import logo from '../../ui/logo.png';
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background: #f5f7fb;
+  min-width: 100%;
+  padding: 10px;
+`;
 
 interface ProductPageProps {
-  itemsList: ProductInfo[];
+  history: History;
 }
-
-const defaultColumns = [
-  {
-    title: 'Nazwa productu',
-    key: 'name',
-    dataIndex: 'name',
-  },
-  {
-    title: 'Czy jest dostępny product',
-    key: 'availability',
-    dataIndex: 'availability',
-  },
-  {
-    title: 'Czy product jest zablokowany',
-    key: 'isBlocked',
-    dataIndex: 'isBlocked',
-    render: (_: any, text: any) => {
-      console.log(text);
-      return <Checkbox disabled defaultChecked={text.isBlocked} />;
-    },
-  },
-  {
-    title: 'Iłość sztuk w magazynie',
-    key: 'quantity',
-    dataIndex: 'quantity',
-  },
-  {
-    title: 'Cena',
-    key: 'price',
-    dataIndex: 'price',
-    width: 100,
-  },
-  {
-    title: 'Dodać do koszyka',
-    key: 'opetation',
-    dataIndex: 'operation',
-    render: (_: any, text: any) => {
-      console.log(text);
-      return <div>Operation</div>;
-    },
-  },
-];
-
-const ProductPage: React.FC<ProductPageProps> = ({ itemsList }) => {
-  const productsList = itemsList.map((item: ProductInfo) => ({
-    name: item.name,
-    quantity: item.max,
-    isBlocked: Boolean(item.isBlocked),
-    availability: item.max > 0 ? 'tak' : 'towar jest niedostępny',
-    price: `${Number(item.price)} zł`,
-  }));
-
+const ProductPage: FC<ProductPageProps> = ({ history }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [productList, setProductList] = useState<ProductInfo[] | any[]>([]);
+  useEffect(() => {
+    setLoading(true);
+    getCart()
+      .then((res: any) => {
+        setProductList(res);
+        setLoading(true);
+      })
+      .catch((err: any) => {
+        notification.error({
+          message: 'Data failed',
+          description: `${err.message || err[0].message}`,
+        });
+        setLoading(true);
+      });
+  }, []);
+  console.log(productList);
   return (
-    <Table
-      bordered
-      columns={defaultColumns}
-      pagination={{
-        showSizeChanger: true,
-      }}
-      dataSource={productsList}
-    />
+    <>
+      <StyledContainer>
+        <div>
+          <img src={logo} height="50px" width="80px" alt="card" />
+        </div>
+        <div style={{ marginLeft: '10px' }}>
+          <Badge dot>
+            <Avatar shape="square" icon={<UserOutlined />} />
+          </Badge>
+        </div>
+      </StyledContainer>
+      <ProductTable itemsList={productList} />
+    </>
   );
 };
+
 export default ProductPage;
