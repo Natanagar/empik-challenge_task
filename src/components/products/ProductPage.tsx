@@ -42,16 +42,6 @@ const ProductPage: FC<ProductPageProps> = ({ history }) => {
   console.log(productList);
   return (
     <>
-      <StyledContainer>
-        <div>
-          <img src={logo} height="50px" width="80px" alt="card" />
-        </div>
-        <div style={{ marginLeft: '10px' }}>
-          <Badge dot>
-            <Avatar shape="square" icon={<UserOutlined />} />
-          </Badge>
-        </div>
-      </StyledContainer>
       <ProductTable itemsList={productList} />
     </>
   );

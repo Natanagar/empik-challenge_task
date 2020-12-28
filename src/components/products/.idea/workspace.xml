@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a496c94a-4b7b-4e80-996d-41c3941d931d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../../../.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../router/AppRouter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../router/AppRouter.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +36,7 @@
       <option name="presentableId" value="Default" />
       <updated>1609109631606</updated>
       <workItem from="1609109632829" duration="1397000" />
-      <workItem from="1609115326670" duration="2706000" />
+      <workItem from="1609115326670" duration="2885000" />
     </task>
     <servers />
   </component>
