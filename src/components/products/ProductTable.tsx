@@ -2,8 +2,9 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ProductInfo } from '../../model/api/getCart';
 import * as paths from '../../router/paths';
-import { Table, Checkbox, Button, Tooltip, Popconfirm } from 'antd';
+import { Button, Checkbox, Popconfirm, Table, Tooltip } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
+import putProductById from '../../model/api/putProductById';
 
 interface ProductTableProps {
   itemsList: ProductInfo[];
@@ -47,10 +48,14 @@ const defaultColumns = [
     dataIndex: 'operation',
     render: (_: any, text: any) => {
       const history = useHistory();
+      console.log(text.id);
       return (
         <Popconfirm
           title="Dodaj towar do koszyka?"
           onConfirm={() => {
+            putProductById(text.id)
+              .then((res: any) => console.log(res))
+              .catch((err: any) => console.log(err));
             history.push(paths.CART);
           }}
           okText="Tak"
@@ -70,7 +75,8 @@ const ProductTable: React.FC<ProductTableProps> = ({ itemsList }) => {
     quantity: item.max,
     isBlocked: Boolean(item.isBlocked),
     availability: item.max > 0 ? 'tak' : 'towar jest niedostępny',
-    price: `${Number(item.price)} zł`,
+    price: `${Math.round(Number(item.price) * 100) / 100} zł`,
+    id: item.pid,
   }));
 
   return (

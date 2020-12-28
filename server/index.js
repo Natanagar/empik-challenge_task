@@ -83,6 +83,13 @@ app.get('/api/product/check', (req, res) => {
   res.send(handleApiProductCheck(req, res));
   //res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
+app.put('/api/addProduct', (req, res) => {
+  console.log(req, res);
+  res.setHeader('Content-Type', 'application/json');
+  console.log(handleApiProductCheck(req, res));
+  res.send(handleApiProductCheck(req, res));
+  //res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
+});
 
 app.listen(4000, () =>
   console.log('Express server is running on localhost:4000')
